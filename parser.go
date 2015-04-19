@@ -20,6 +20,18 @@ type Route struct {
 	Handler string
 }
 
+func (r Route) ParamNames() []string {
+	out := []string{}
+	parts := strings.Split(r.Path, "/")
+	for _, p := range parts {
+		if isParam(p) {
+			p = cleanAndNormalize(p)
+			out = append(out, p)
+		}
+	}
+	return out
+}
+
 func ParseRoutes(reader io.Reader) (def RoutesDef, err error) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -97,4 +109,29 @@ func beginsWithHTTPVerb(str string) bool {
 	}
 
 	return false
+}
+
+func downcaseFirstCamel(str string) string {
+	lower := strings.ToLower(str)
+
+	firstLowerIndex := -1
+	for i := 0; i < len(str); i++ {
+		if lower[i] == str[i] {
+			firstLowerIndex = i
+			break
+		}
+	}
+
+	// starts with lower userName => userName
+	if firstLowerIndex <= 0 {
+		return str
+	}
+
+	// starts with single capital UserName => userName
+	if firstLowerIndex == 1 {
+		return lower[0:firstLowerIndex] + str[firstLowerIndex:]
+	}
+
+	// starts with capital abbrev IDForUser => idForUser
+	return lower[0:firstLowerIndex-1] + str[firstLowerIndex-1:]
 }

@@ -1,0 +1,6 @@
+import "github.com/jgroeneveld/myproj/users"
+
+GET		/api/v1/users		users.GetUsers
+POST	/api/v1/users 		users.PostUser
+
+get		/api/v1/user/:id 	users.GetUserForID

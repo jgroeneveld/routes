@@ -30,7 +30,7 @@ func RouteNameForPath(path string) string {
 
 	out := strings.Join(names, "")
 	if len(params) > 0 {
-		out += "For" + strings.Join(params, "And")
+		out += "By" + strings.Join(params, "And")
 	}
 	return out
 }

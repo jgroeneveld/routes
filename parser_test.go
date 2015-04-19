@@ -56,3 +56,19 @@ func TestParseRoutes_MalformedRoute(t *testing.T) {
 
 	assert.Error(t, err, "should detect malformed route")
 }
+
+func TestDowncaseFirstCamel(t *testing.T) {
+	tests := []struct {
+		in       string
+		expected string
+	}{
+		{"idForUser", "idForUser"},
+		{"IDForUser", "idForUser"},
+		{"UserName", "userName"},
+		{"OAuthToken", "oAuthToken"},
+	}
+
+	for _, tst := range tests {
+		assert.Equal(t, tst.expected, downcaseFirstCamel(tst.in), "for %s", tst.in)
+	}
+}

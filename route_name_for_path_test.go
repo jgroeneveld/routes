@@ -13,9 +13,9 @@ func TestRouteNameForPath(t *testing.T) {
 	}{
 		{"/", "Root"},
 		{"/users", "Users"},
-		{"/user/:id", "UserForID"},
-		{"/user/:id/info", "UserInfoForID"},
-		{"/organization/:organization_id/user/:user_id", "OrganizationUserForOrganizationIDAndUserID"},
+		{"/user/:id", "UserByID"},
+		{"/user/:id/info", "UserInfoByID"},
+		{"/organization/:organization_id/user/:user_id", "OrganizationUserByOrganizationIDAndUserID"},
 		{"/api/v1/login", "APIV1Login"},
 		{"/api/v1/oauth_token", "APIV1OAuthToken"},
 	}
