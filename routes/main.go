@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"os"
@@ -55,10 +56,12 @@ func (g *generate) Run() error {
 		return err
 	}
 
-	err = routes.Write(abs, rd, out)
+	pkg := filepath.Base(filepath.Dir(abs))
+	err = routes.Write(pkg, rd, out)
 	if err != nil {
 		return err
 	}
 
+	fmt.Printf("Wrote %s with package %s\n", g.OutFile, pkg)
 	return nil
 }
